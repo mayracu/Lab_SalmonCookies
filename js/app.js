@@ -28,22 +28,24 @@ let Seattle = {
     return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
   },
   getCustomersPerHour: function(){
-    this.customersPerHour = this.randomCustomersPerHourGenerator(23, 65);
+    this.customersPerHour = this.randomCustomersPerHourGenerator(this.minHourlyCust, this.maxHourlyCust);
+    return this.customersPerHour;
   },
 
   getCookiesPurchasedHourly: function(){
     for (let i=0; i<14; i++){
-      this.cookiesPurchasedHourly[i] = this.avgCookiesPerCust*this.randomCustomersPerHourGenerator(this.minHourlyCust, this.maxHourlyCust);
+      this.cookiesPurchasedHourly[i] = this.avgCookiesPerCust*this.getCustomersPerHour();//this.randomCustomersPerHourGenerator(this.minHourlyCust, this.maxHourlyCust);
     }
+    return this.cookiesPurchasedHourly;
   },
 
   getTotalCookiesSold: function(){
     let cookies = 0;
     for (let i = 0; i < 14; i++){
-      cookies = cookies + Number(this.cookiesPurchasedHourly[i]);
+      this.totalCookiesSold = this.totalCookiesSold + Number(this.cookiesPurchasedHourly[i]);
     }
     console.log (cookies);
-    return cookies;
+    return this.totalCookiesSold;
   },
 
 
@@ -53,15 +55,29 @@ let Seattle = {
     this.totalCookiesSold = this.getTotalCookiesSold(); // this method call will populate the amount of total cookies sold per day in Seattle
 
     // *** Creating element: section
-    let sectionElem = document.createElement('section');
+    let sectionElement = document.createElement('article');
 
     // *** Add to DOM*** parent.appendChild(child)
 
-    locationSection.appendChild(sectionElem);
+    locationSection.appendChild(sectionElement);
+
 
     let locationHeading = document.createElement('h2');
     locationHeading.innerText = this.storeName;
-    sectionElem.appendChild(locationHeading);
+    sectionElement.appendChild(locationHeading);
+
+    let locationUL = document.createElement('ul');
+    sectionElement.appendChild(locationUL);
+
+    for (let i = 0; i < hours.length; i++){
+      let hoursLI = document.createElement('li');
+      hoursLI.innerText = hours[i];
+      locationUL.appendChild(hoursLI);
+    }
+
+
+    // let locationUL = document.createElement;('ul');
+    //locationSection.appendChild(locationUL);
 
 
 
@@ -73,7 +89,8 @@ let Seattle = {
 // *** Executable Code *** /
 
 Seattle.render();
-Seattle.getCustomersPerHour();
-Seattle.getCookiesPurchasedHourly();
-Seattle.getTotalCookiesSold();
 console.log(Seattle);
+//Seattle.getCustomersPerHour();
+//Seattle.getCookiesPurchasedHourly();
+//Seattle.getTotalCookiesSold();
+//console.log(Seattle);
