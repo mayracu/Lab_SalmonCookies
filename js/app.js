@@ -48,6 +48,9 @@ function renderHeader(){
 
 }
 
+
+
+
 function renderFooter(){
   // Create row that will display hours
   let rowFooter = document.createElement('tr');
@@ -58,7 +61,22 @@ function renderFooter(){
   totalsFooter.textContent = 'Totals';
   rowFooter.appendChild(totalsFooter);
 
+
 }
+
+/* Display totals in last row
+ let totalsArray = [];
+ console.log(totalsArray);
+for (let i=0; i< storesArray.length; i++){
+  let totals = 0;
+  for (let j = 0; j < hours.length; j++){
+    totals += storesArray[j].cookiesPurchasedHourly[i];
+    console.log(totals);
+  }
+}
+*/
+
+
 
 
 function renderAll(){
@@ -67,6 +85,8 @@ function renderAll(){
   }
 
 }
+
+
 
 
 // **** CONSTRUCTOR FUNCTION ****
@@ -132,7 +152,11 @@ Stores.prototype.render = function(){
   let totalsElem = document.createElement('th');
   totalsElem.textContent = this.totalCookiesSold;
   row.appendChild(totalsElem);
+
+
 };
+
+
 
 // ****Executable code****
 
@@ -152,6 +176,11 @@ renderTable();
 renderHeader();
 renderAll();
 renderFooter();
+
+
+
+
+
 
 //console.log(Seattle, Tokyo, Dubai, Paris, Lima);
 
