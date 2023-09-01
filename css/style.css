@@ -59,12 +59,13 @@ main article {
 
 #firstSection {
   display: block;
-  margin: 50px;
+  margin: 30px;
 }
 
 main article img {
   width: 40%;
-  margin: 50px;
+  height: 40%;
+  margin: 30px;
 }
 
 #secondSection {
@@ -83,7 +84,7 @@ main article img {
 }
 
 h1 {
-  font-size: 4em;
+  font-size: 3em;
   text-align: center;
   margin: 20px;
 }
@@ -92,7 +93,7 @@ p {/*
   width: 450px;
   height: 300px;
   overflow: auto;*/
-  font-size: 2em;
+  font-size: 1em;
 }
 
 
@@ -108,7 +109,7 @@ footer {
 
 h2 {
   height: 50px;
-  font-size: 3em;
+  font-size: 2em;
   text-align: center;
   color: #112D6E;
 }
