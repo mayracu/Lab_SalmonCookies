@@ -12,6 +12,7 @@ const storesArray = [];
 
 let salesTable;
 
+
 // **** Helper Functions or Utilities **** //
 
 // **creating table
@@ -49,43 +50,11 @@ function renderHeader(){
 }
 
 
-
-
-function renderFooter(){
-  // Create row that will display hours
-  let rowFooter = document.createElement('tr');
-  salesTable.appendChild(rowFooter);
-
-  //Create last cell displaying text 'Totals'
-  let totalsFooter = document.createElement('th');
-  totalsFooter.textContent = 'Totals';
-  rowFooter.appendChild(totalsFooter);
-
-
-}
-
-/* Display totals in last row
- let totalsArray = [];
- console.log(totalsArray);
-for (let i=0; i< storesArray.length; i++){
-  let totals = 0;
-  for (let j = 0; j < hours.length; j++){
-    totals += storesArray[j].cookiesPurchasedHourly[i];
-    console.log(totals);
-  }
-}
-*/
-
-
-
-
 function renderAll(){
   for (let i = 0; i < storesArray.length; i++){
     storesArray[i].render();
   }
-
 }
-
 
 
 
@@ -128,10 +97,12 @@ Stores.prototype.getTotalCookiesSold = function(){
   return this.totalCookiesSold;
 };
 
+
 Stores.prototype.render = function(){
   this.customersPerHour = this.getCustomersPerHour(); // this method call will populate the amount of customers per hour in Seattle
   this.cookiesPurchasedHourly = this.getCookiesPurchasedHourly(); // this method call will populate the amount of cookies purchased hourly in Seattle
   this.totalCookiesSold = this.getTotalCookiesSold(); // this method call will populate the amount of total cookies sold per day in Seattle
+
 
   //Create row to display each store name and daily sales data
   let row = document.createElement('tr');
@@ -156,6 +127,36 @@ Stores.prototype.render = function(){
 
 };
 
+
+function renderFooter(){
+  // Create row that will display hours
+  let rowFooter = document.createElement('tr');
+  salesTable.appendChild(rowFooter);
+
+  //Create last cell displaying text 'Totals'
+  let totalsFooter = document.createElement('th');
+  totalsFooter.textContent = 'Totals';
+  rowFooter.appendChild(totalsFooter);
+
+  let grandTotal = 0;
+
+  for (let i = 0; i < hours.length; i++){
+    //slow loop
+    let totals = 0;
+    for (let j = 0; j< storesArray.length; j ++){
+      //fast loop
+      totals += storesArray[j].cookiesPurchasedHourly[i];
+      grandTotal+= storesArray[j].cookiesPurchasedHourly[i];
+    }
+    let hourlyTotals = document.createElement('td');
+    hourlyTotals.textContent =totals;
+    rowFooter.appendChild(hourlyTotals);
+  }
+  let grandTotalCell = document.createElement('td');
+  grandTotalCell.textContent = grandTotal;
+  rowFooter.appendChild(grandTotalCell);
+
+}
 
 
 // ****Executable code****
