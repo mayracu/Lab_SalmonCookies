@@ -2,12 +2,14 @@ body{
   /*width: 80%;*/
   margin: auto;
   background-color: #8ac6e4;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 #header1 {
   background-color: white;
   display: flex; 
   justify-content: space-evenly;
+  font-family: 'Montserrat', sans-serif;
 }
 
 #header1 img {
@@ -19,6 +21,7 @@ nav {
   margin: 30px;
   font-size: 2em;
   text-align: center;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /*
@@ -146,3 +149,39 @@ h3 {
   display: block;
   text-align: center;
 }
+
+form{
+  position: relative;
+  min-width: 300px;
+  max-width: 500px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  padding: 1em;
+  box-sizing: border-box;
+  background-color: whitesmoke;
+}
+
+form input {
+width:100%;
+}
+
+form legend {
+  font-size: large;
+}
+
+table{
+  border:#112D6E;
+  background-color: whitesmoke;
+  margin: 0 auto;
+  /*margin-bottom: 30px;
+  margin-right: 30px;*/
+  margin-bottom: 30px;
+  border: 1px solid;
+}
+
+table, th {
+  border: 1px solid;
+  text-align: center;
+  padding:5px;
+}
+
