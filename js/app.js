@@ -4,6 +4,11 @@
 let locationSection = document.getElementById('locations');
 
 console.dir(locationSection);
+// Grabbing form for event submission
+
+let myForm = document.getElementById('store-form');
+
+
 
 // *** Global Variables *** //
 let hours = ['6am', '7am', '8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm', '7pm'];
@@ -13,7 +18,40 @@ const storesArray = [];
 let salesTable;
 
 
-// **** Helper Functions or Utilities **** //
+// **** HELPER FUNCTIONS OR UTILITIES **** //
+
+/*Form submission event listener and handler */
+function handleSubmit(event){
+  event.preventDefault();
+  console.log('form submitted');
+
+
+  // TODO: Grab the values from the form
+  let storeLocation = event.target.storeLocation.value;
+  let minCustomer = event.target.minCustomer.value;
+  let maxCustomer = event.target.maxCustomer.value;
+  let avgCookiesPerCustomer = event.target.avgCookiesPerCustomer.value;
+  // TODO: Create new stores from the form values
+  let newStore = new Stores(storeLocation, minCustomer, maxCustomer, avgCookiesPerCustomer);
+
+  storesArray.push(newStore);
+
+
+  //resets the form:
+  myForm.reset();
+
+  // TODO: remove footer row
+  salesTable.deleteTFoot();
+  // TODO: call the store method
+  newStore.render();
+  // TODO: add footer back in
+  renderFooter();
+
+}
+
+myForm.addEventListener('submit', handleSubmit);
+
+
 
 // **creating table
 
@@ -46,6 +84,40 @@ function renderHeader(){
   let totalCookiesSoldHeader = document.createElement('th');
   totalCookiesSoldHeader.textContent = 'Daily Location Total';
   rowHeading.appendChild(totalCookiesSoldHeader);
+
+}
+
+
+function renderFooter(){
+
+  let footer = document.createElement('tfoot');
+  salesTable.appendChild(footer);
+  // Create row that will display hours
+  let rowFooter = document.createElement('tr');
+  footer.appendChild(rowFooter);
+
+  //Create last cell displaying text 'Totals'
+  let totalsFooter = document.createElement('th');
+  totalsFooter.textContent = 'Totals';
+  rowFooter.appendChild(totalsFooter);
+
+  let grandTotal = 0;
+
+  for (let i = 0; i < hours.length; i++){
+    //slow loop
+    let totals = 0;
+    for (let j = 0; j< storesArray.length; j ++){
+      //fast loop
+      totals += storesArray[j].cookiesPurchasedHourly[i];
+      grandTotal+= storesArray[j].cookiesPurchasedHourly[i];
+    }
+    let hourlyTotals = document.createElement('th');
+    hourlyTotals.textContent =totals;
+    rowFooter.appendChild(hourlyTotals);
+  }
+  let grandTotalCell = document.createElement('th');
+  grandTotalCell.textContent = grandTotal;
+  rowFooter.appendChild(grandTotalCell);
 
 }
 
@@ -127,36 +199,6 @@ Stores.prototype.render = function(){
 
 };
 
-
-function renderFooter(){
-  // Create row that will display hours
-  let rowFooter = document.createElement('tr');
-  salesTable.appendChild(rowFooter);
-
-  //Create last cell displaying text 'Totals'
-  let totalsFooter = document.createElement('th');
-  totalsFooter.textContent = 'Totals';
-  rowFooter.appendChild(totalsFooter);
-
-  let grandTotal = 0;
-
-  for (let i = 0; i < hours.length; i++){
-    //slow loop
-    let totals = 0;
-    for (let j = 0; j< storesArray.length; j ++){
-      //fast loop
-      totals += storesArray[j].cookiesPurchasedHourly[i];
-      grandTotal+= storesArray[j].cookiesPurchasedHourly[i];
-    }
-    let hourlyTotals = document.createElement('td');
-    hourlyTotals.textContent =totals;
-    rowFooter.appendChild(hourlyTotals);
-  }
-  let grandTotalCell = document.createElement('td');
-  grandTotalCell.textContent = grandTotal;
-  rowFooter.appendChild(grandTotalCell);
-
-}
 
 
 // ****Executable code****
